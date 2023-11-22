@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital</title>
+    <style>
+        body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        }
+
+        #clock {
+        font-family: 'Arial', sans-serif;
+        font-size: 2em;
+        color: #333;
+        }
+    </style>
+    </head>
+    <body>
+    <div id="clock"></div>
+
+    <script>
+        function updateClock() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        var timeString = hours + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        document.getElementById('clock').textContent = timeString;
+
+        // Fale as horas utilizando a Web Speech API
+        var speech = new SpeechSynthesisUtterance();
+        speech.lang = 'pt-BR';
+        speech.text = 'São ' + hours + ' horas e ' + minutes + ' minutos';
+        window.speechSynthesis.speak(speech);
+        }
+
+        // Atualize o relógio a cada segundo
+        setInterval(updateClock, 1000);
+
+        // Execute a função no início para evitar um atraso inicial
+        updateClock();
+    </script>
+    </body>
+</html>
